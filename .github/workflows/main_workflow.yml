@@ -3,7 +3,7 @@ name: main_workflow
 on:
   push:
     branches:
-      - nodejs_linter_job
+      - nodejs_jest_job
 
 jobs:
   linter-execution:
@@ -28,8 +28,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
       
       - name: Run jest tests
         run: |
-          npm install jest
+          npm install
+          npm install jest --save-dev
           npm test
